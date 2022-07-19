@@ -16,11 +16,12 @@ const Port = process.env.APP_PORT || 3012;
 const PORT = process.env.PORT || 3012;
 
 const app = express();
-app.use(bodyParser.urlencoded({ 'extended': 'false' }));
-app.use(bodyParser.json());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(cors());
 app.use(fileupload());
+app.use(bodyParser.urlencoded({ 'extended': 'true' }));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+
 // error handler middleware
 app.use((error, req, res, next) => {
   res.status(error.status || 500).send({
@@ -46,3 +47,4 @@ const sslServer = https.createServer(
 app.listen(PORT, () => {
   console.log(`application is running on port ${PORT}`);
 })
+
