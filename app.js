@@ -13,6 +13,8 @@ const path = require('path')
 const fs = require('fs')
 
 const Port = process.env.APP_PORT || 3012;
+const PORT = process.env.PORT || 3012;
+
 const app = express();
 app.use(bodyParser.urlencoded({ 'extended': 'false' }));
 app.use(bodyParser.json());
