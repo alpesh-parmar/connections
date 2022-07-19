@@ -15,20 +15,6 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
 require('dotenv').config();
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-});
-const credentials = {
-    user: process.env.USER,//  "postgres",
-    host: process.env.HOST,//"localhost",
-    database: process.env.DB_NAME,//"Triage",
-    password: process.env.PASS,// "Admin@123",
-    port: 5432,
-};
-
 
 exports.create = async (req, res, next) => {
 
@@ -222,7 +208,7 @@ exports.getConnections = async (req, res, next) => {
           require: true,
           rejectUnauthorized: false
         }
-    });
+    });     
     await client.connect(function (err) {
         if (err) {
             return console.error('could not connect to postgres', err);
