@@ -75,7 +75,13 @@ exports.create = async (req, res, next) => {
             }
 
             if(result.id > 0){
-                const client = new Client(credentials);
+                const client = new Client({
+                    connectionString: process.env.DATABASE_URL,
+                    ssl: {
+                      require: true,
+                      rejectUnauthorized: false
+                    }
+                });
                 client.connect(function (err) {
                     if (err) {
                         return console.error('could not connect to postgres', err);
@@ -111,7 +117,13 @@ exports.create = async (req, res, next) => {
         });
 }
 exports.updateSettings = async (req, res, next) => {
-    const client = new Client(credentials);
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+    });
     client.connect(function (err) {
         if (err) {
             return console.error('could not connect to postgres', err);
@@ -171,7 +183,13 @@ exports.updateSettings = async (req, res, next) => {
 
 }
 exports.getGroups = async (req, res, next) => {
-    const client = await new Client(credentials);
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+    });
     await client.connect(function (err) {
         if (err) {
             return console.error('could not connect to postgres', err);
@@ -190,7 +208,13 @@ exports.getGroups = async (req, res, next) => {
 }
 exports.deleteGroup = async (req, res,next) => {
 
-    const client = await new Client(credentials);
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+    });
 
     client.connect(function (err) {
         if (err) {
@@ -253,7 +277,13 @@ exports.deleteGroup = async (req, res,next) => {
 
 
 exports.getGroupMembers = async (req, res, next) => {
-    const client = await new Client(credentials);
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+    });
     await client.connect(function (err) {
         if (err) {
             return console.error('could not connect to postgres', err);
@@ -278,7 +308,13 @@ exports.getGroupMembers = async (req, res, next) => {
 
 exports.deleteGroupMember = async (req, res,next) => {
 
-    const client = await new Client(credentials);
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+    });
 
     client.connect(function (err) {
         if (err) {
