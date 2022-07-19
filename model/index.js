@@ -3,16 +3,16 @@ const path = require('path')
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.USER, process.env.PASS, {
-  host: process.env.HOST,
-  dialect: 'postgres',
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
-  }
-});
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        }
+    }
+  });
 
 
 const db = {};
