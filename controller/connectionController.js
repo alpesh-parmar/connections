@@ -101,7 +101,14 @@ exports.create = async (req, res, next) => {
 exports.importConnection = async (req, res, next) => {    
 
 
-    const client = new Client(credentials);
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+    });
+    
     client.connect(function (err) {
         if (err) {
             return console.error('could not connect to postgres', err);
@@ -143,7 +150,13 @@ exports.importConnection = async (req, res, next) => {
 }
 
 exports.updateSettings = async (req, res, next) => {
-    const client = new Client(credentials);
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+    });
     client.connect(function (err) {
         if (err) {
             return console.error('could not connect to postgres', err);
@@ -203,7 +216,13 @@ exports.updateSettings = async (req, res, next) => {
 
 }
 exports.getConnections = async (req, res, next) => {
-    const client = await new Client(credentials);
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+    });
     await client.connect(function (err) {
         if (err) {
             return console.error('could not connect to postgres', err);
@@ -230,7 +249,13 @@ exports.getConnections = async (req, res, next) => {
 
 exports.deleteConnection = async (req, res,next) => {
 
-    const client = await new Client(credentials);
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+    });
 
     client.connect(function (err) {
         if (err) {
