@@ -2,7 +2,6 @@ const express = require("express");
 const fileupload = require("express-fileupload");
 const connectionroutes = require('./route/connection.routes');
 const dotenv = require('dotenv').config();
-const PoolTest = require('./config/dbTest');
 const cors = require('cors');
 const jsonwebtoken = require('jsonwebtoken');
 
@@ -13,7 +12,7 @@ const https = require('https')
 const path = require('path')
 const fs = require('fs')
 
-const Port = process.env.APP_PORT || 3008;
+const Port = process.env.APP_PORT || 3012;
 const app = express();
 app.use(bodyParser.urlencoded({ 'extended': 'false' }));
 app.use(bodyParser.json());
@@ -29,6 +28,9 @@ app.use((error, req, res, next) => {
     },
   });
 });
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 //app.use(dotenv.config);
 app.use("/api/v1", connectionroutes.connectionRoute);
 const sslServer = https.createServer(
@@ -39,6 +41,6 @@ const sslServer = https.createServer(
   app
 )
 
-sslServer.listen(Port, () => {
-  console.log(`application is running on port ${Port}`);
+app.listen(PORT, () => {
+  console.log(`application is running on port ${PORT}`);
 })
