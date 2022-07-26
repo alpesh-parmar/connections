@@ -13,8 +13,9 @@ router.get("/deleteconnection/:id", connectioncontroller.deleteConnection);
 router.post("/importconnection", connectioncontroller.importConnection);
 
 
-
 router.post("/creategroup", groupcontroller.create);
+router.post("/updategroup", groupcontroller.updateGroup);
+
 router.get("/getgrouplist", groupcontroller.getGroups);
 router.get("/deletegroup/:id", groupcontroller.deleteGroup);
 
