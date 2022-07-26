@@ -21,6 +21,7 @@ app.use(fileupload());
 app.use(bodyParser.urlencoded({ 'extended': 'true' }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use('/uploads', express.static('uploads'));
 
 // error handler middleware
 app.use((error, req, res, next) => {
