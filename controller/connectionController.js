@@ -135,7 +135,7 @@ exports.importConnection = async (req, res, next) => {
     
 }
 
-exports.updateSettings = async (req, res, next) => {
+exports.update = async (req, res, next) => {
     const client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: {
@@ -147,32 +147,47 @@ exports.updateSettings = async (req, res, next) => {
         if (err) {
             return console.error('could not connect to postgres', err);
         }
+        if (req.files != null) {
+            var file = req.files.profile_pic
+            if (file != null && file != '') {
+                var filename = 'profile_pic_' + Date.now() + '_' + file.name
+                file.mv('./uploads/' + filename, function (err) {
+                    if (err) {
+                        res.send(err)
+                    } else {
+    
+                    }
+                })
+            }
+        }
+    
+        // const smlData = JSON.parse(req.body.sml);        
+        // if (smlData === undefined) {
+        // } else {
+        //     var filtered = smlData.filter(function (el) {
+        //         return el != null;
+        //     });
+        //     var socialMediaLinks = filtered.map(function (item) {
+        //         if (item === null) { } else {
+        //             return item['social_media_links'];
+        //         }
+        //     });   
+        // }
+    
+    
+        const connectiondetails = {
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
+            phone_no: req.body.phone_no,
+            about:req.body.about,
+            profile_pic:filename,
+            website:req.body.website,
+            address:req.body.address,                  
+            createddate: Date.now(),
+        };   
 
-        const rsvpsettingsdetails = {
-            rsvp_event_id: req.body.rsvp_event_id,
-            rsvp_event_mode: req.body.rsvp_event_mode,
-            rsvp_event_id: req.body.rsvp_event_id,
-            rsvp_by_date: req.body.rsvp_by_date,
-            rsvp_by_time: req.body.rsvp_by_time,
-            rsvp_individual: req.body.rsvp_individual,
-            rsvp_individual_set_guest_limit: req.body.rsvp_individual_set_guest_limit,
-            rsvp_individual_allow_invitee_to_name: req.body.rsvp_individual_allow_invitee_to_name,
-            rsvp_group: req.body.rsvp_group,
-            rsvp_status: req.body.rsvp_status,
-            rsvp_event_capacity: req.body.rsvp_event_capacity,
-            rsvp_group_set_guest_limit: req.body.rsvp_group_set_guest_limit,
-            rsvp_group_allow_invitee_to_name: req.body.rsvp_group_allow_invitee_to_name,
-            rsvp_support_email_address: req.body.rsvp_support_email_address,
-            rsvp_support_contact_no: req.body.rsvp_support_contact_no,
-            rsvp_guest_first_reminder: req.body.rsvp_guest_first_reminder,
-            rsvp_guest_second_reminder: req.body.rsvp_guest_second_reminder,
-            rsvp_guest_first_reminder_date: req.body.rsvp_guest_first_reminder_date ? req.body.rsvp_guest_first_reminder_date : null,
-            rsvp_guest_second_reminder_date: req.body.rsvp_guest_second_reminder_date ? req.body.rsvp_guest_second_reminder_date : null,
-            updatedby: req.body.updatedby,
-            updateddate: Date.now(),
-        };
-
-        RsvpSettingsModel.update(rsvpsettingsdetails, {
+        ConnectionModel.update(connectiondetails, {
             where: { id: req.body.id }
         })
             .then(num => {
