@@ -177,7 +177,7 @@ exports.getGroups = async (req, res, next) => {
         if (err) {
             return console.error('could not connect to postgres', err);
         }
-        client.query('SELECT G.id,G.key,G.group_name, E.p_event_title AS event_title,(SELECT COUNT(*) FROM public.group_members as GM WHERE GM.group_id = G.id) AS membercounts FROM public.groups as G inner join public.event_parents as E on G.event_id = E.id ORDER BY G.id DESC', async (err, response) => {
+        client.query('SELECT G.id,G.event_mode,G.event_id,G.key,G.group_name, E.p_event_title AS event_title,(SELECT COUNT(*) FROM public.group_members as GM WHERE GM.group_id = G.id) AS membercounts FROM public.groups as G inner join public.event_parents as E on G.event_id = E.id ORDER BY G.id DESC', async (err, response) => {
            if (err) {
                 return console.error('error running query', err);
             }           
