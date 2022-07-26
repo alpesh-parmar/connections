@@ -7,7 +7,7 @@ const validaterequestschema = require('../middlewares/validaterequestschema');
 const res = require("express/lib/response");
 
 router.post("/create", connectioncontroller.create);
-router.post("/updatesettings", connectioncontroller.updateSettings);
+router.post("/update", connectioncontroller.update);
 router.get("/getconnections", connectioncontroller.getConnections);
 router.get("/deleteconnection/:id", connectioncontroller.deleteConnection);
 router.post("/importconnection", connectioncontroller.importConnection);
