@@ -5,6 +5,7 @@ module.exports = (sequelize, Sequelize) => {
         email: { type: Sequelize.STRING },
         phone_no: { type: Sequelize.STRING },
         profile_pic: { type: Sequelize.STRING },
+        address: { type: Sequelize.STRING },
         website: { type: Sequelize.STRING },
         social_media_links: { type: Sequelize.ARRAY(Sequelize.TEXT) },
         about: { type: Sequelize.STRING },
