@@ -17,6 +17,7 @@ router.post("/creategroup", groupcontroller.create);
 router.post("/updategroup", groupcontroller.updateGroup);
 
 router.get("/getgrouplist", groupcontroller.getGroups);
+router.get("/getgrouplistbyeid/:id",groupcontroller.getGroupListById)
 router.get("/deletegroup/:id", groupcontroller.deleteGroup);
 
 router.get("/getgroupmemberlist/:id", groupcontroller.getGroupMembers);
