@@ -256,7 +256,36 @@ exports.deleteGroup = async (req, res,next) => {
 
 };
 
-
+exports.getGroupListById = async (req, res, next) => {
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+    });
+    await client.connect(function (err) {
+        if (err) {
+            return console.error('could not connect to postgres', err);
+        }
+        const eventId = req.params.id        
+        if(eventId !== "" && eventId > 0){
+            client.query('SELECT * FROM public.groups WHERE event_id = '+eventId+' ORDER BY id DESC', async (err, response) => {
+                if (err) {
+                     return console.error('error running query', err);
+                 }           
+                const datas = response.rows
+                 return res.status(200).send({
+                     result:datas,
+                     success: 1,
+                     status:200
+                 })
+            });
+        }
+         
+    });
+    // next();
+}
 
 
 exports.getGroupMembers = async (req, res, next) => {
